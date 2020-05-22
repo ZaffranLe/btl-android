@@ -1,5 +1,6 @@
 package com.example.hang_man;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import com.example.hangman.R;
  */
 
 public class MainActivity extends Activity  implements OnClickListener {
+	DBHelper dbHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,9 @@ public class MainActivity extends Activity  implements OnClickListener {
 		setContentView(R.layout.activity_main);
 
 		Button playBtn = (Button)findViewById(R.id.playBtn);
+		Button QuestionManBtn = (Button)findViewById(R.id.QuestionManBtn);
 		playBtn.setOnClickListener(this);
+		QuestionManBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -34,6 +38,9 @@ public class MainActivity extends Activity  implements OnClickListener {
 			Intent playIntent = new Intent(this, GameActivity.class);
 			this.startActivity(playIntent);
 		}
+		if(view.getId()==R.id.QuestionManBtn){
+			Intent qaIntent = new Intent(this,QuestionActivity.class);
+			this.startActivity(qaIntent);
+		}
 	}
-
 }
