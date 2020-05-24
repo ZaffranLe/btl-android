@@ -187,8 +187,8 @@ public class GameActivity extends Activity {
 				//let user know they have won, ask if they want to play again
 				AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
 				winBuild.setTitle("YAY");
-				winBuild.setMessage("You win!\n\nThe answer was:\n\n"+currWord);
-				winBuild.setPositiveButton("Play Again", 
+				winBuild.setMessage("You answered correctly!\n\nThe answer was:\n\n"+currWord);
+				winBuild.setPositiveButton("Next question",
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						GameActivity.this.playGame();
