@@ -39,6 +39,10 @@ public class QuestionEditActivity extends Activity {
         String receivedWord = intent.getStringExtra("word");
         final String receivedHint = intent.getStringExtra("hint");
 
+        qea_etid.setText(receivedID);
+        qea_etword.setText(receivedWord);
+        qea_ethint.setText(receivedHint);
+
         qea_etid.setHint(receivedID);
         qea_etword.setHint(receivedWord);
         qea_ethint.setHint(receivedHint);
@@ -73,6 +77,8 @@ public class QuestionEditActivity extends Activity {
                 long resultDelete = dbHelper.Delete(Integer.parseInt(qea_etid.getText().toString()));
                 if (resultDelete == 0) {
                     Toast.makeText(QuestionEditActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
+                    Intent QEAtoQAintent = new Intent(QuestionEditActivity.this,QuestionActivity.class);
+                    startActivity(QEAtoQAintent);
                 }
                 else {
                     Toast.makeText(QuestionEditActivity.this,"DELETED SUCCESSFULLY",Toast.LENGTH_SHORT).show();
