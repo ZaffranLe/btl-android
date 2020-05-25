@@ -23,4 +23,13 @@
 		android:text="Play"
 		android:textColor="#FFFF0000" />
 
+	<Button
+		android:id="@+id/QuestionManBtn"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Question Manager"
+		android:layout_below="@+id/playBtn"
+		android:layout_centerHorizontal="true"
+		android:textColor="#FFFF0000"/>
+
 </RelativeLayout>
