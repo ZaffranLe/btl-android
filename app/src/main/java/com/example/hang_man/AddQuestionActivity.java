@@ -2,6 +2,8 @@ package com.example.hang_man;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,10 +14,10 @@ import android.database.Cursor;
 
 import com.example.hangman.R;
 
-public class AddQuestionActivity extends AppCompatActivity {
+public class AddQuestionActivity extends Activity {
     DBHelper dbHelper;
-    Button addBtn;
-    EditText tvWord,tvHint;
+    Button addBtn,backBtn;
+    EditText tvWord,tvHint,tvID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +25,31 @@ public class AddQuestionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_question);
 
         addBtn = (Button)findViewById(R.id.aqa_addBtn);
+        backBtn = (Button)findViewById(R.id.aqa_backBtn);
         tvWord = (EditText) findViewById(R.id.aqa_word);
         tvHint = (EditText) findViewById(R.id.aqa_hint);
+        tvID = (EditText) findViewById(R.id.aqa_id);
+        dbHelper = new DBHelper(AddQuestionActivity.this);
+        dbHelper.openDB();
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long resultAdd = dbHelper.Insert(getValue(tvWord));
+                long resultAdd = dbHelper.Insert(Integer.parseInt(tvID.getText().toString()),tvWord.getText().toString(),tvHint.getText().toString());
+                if (resultAdd==-1){
+                    Toast.makeText(AddQuestionActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(AddQuestionActivity.this,"SUCCESS",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent backQA = new Intent(AddQuestionActivity.this,QuestionActivity.class);
+                startActivity(backQA);
             }
         });
     }

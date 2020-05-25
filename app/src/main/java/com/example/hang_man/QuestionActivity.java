@@ -1,19 +1,21 @@
 package com.example.hang_man;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.hangman.R;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends Activity {
 
+    int listIndex = 0;
     EditText SearchBar;
     ListView lvQuestion;
     Button addBtn;
@@ -21,18 +23,6 @@ public class QuestionActivity extends AppCompatActivity {
 
     private String getValue(EditText editText) {
         return editText.getText().toString().trim();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        dbHelper.openDB();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        dbHelper.closeDB();
     }
 
     @Override
@@ -46,7 +36,7 @@ public class QuestionActivity extends AppCompatActivity {
         lvQuestion = (ListView)findViewById(R.id.qa_listview);
 
         dbHelper = new DBHelper(QuestionActivity.this);
-
+        dbHelper.openDB();
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,12 +46,26 @@ public class QuestionActivity extends AppCompatActivity {
         });
 
         showWord();
+
+        lvQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView idholder = (TextView)view.findViewById(R.id.qe_tvid);
+                TextView wordholder = (TextView)view.findViewById(R.id.qe_tvword);
+                TextView hintholder = (TextView)view.findViewById(R.id.qe_tvhint);
+                Intent qeIntent = new Intent(view.getContext(), QuestionEditActivity.class);
+                qeIntent.putExtra("id",idholder.getText().toString());
+                qeIntent.putExtra("word",wordholder.getText().toString());
+                qeIntent.putExtra("hint",hintholder.getText().toString());
+                startActivityForResult(qeIntent,0);
+            }
+        });
     }
 
     public void showWord(){
         Cursor cursor = dbHelper.getAllRecord();
 
-        QuestionManageCursorAdapter adapter = new QuestionManageCursorAdapter(QuestionActivity.this,R.layout.activity_question_edit,cursor,0);
+        QuestionManageCursorAdapter adapter = new QuestionManageCursorAdapter(QuestionActivity.this,R.layout.activity_question_layout,cursor,0);
         lvQuestion.setAdapter(adapter);
     }
 }

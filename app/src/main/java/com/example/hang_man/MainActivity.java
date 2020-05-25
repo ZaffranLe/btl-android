@@ -20,11 +20,25 @@ import com.example.hangman.R;
 public class MainActivity extends Activity  implements OnClickListener {
 	DBHelper dbHelper;
 
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		dbHelper.openDB();
+	}
+
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		dbHelper.closeDB();
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-
+		dbHelper = new DBHelper(MainActivity.this);
 		Button playBtn = (Button)findViewById(R.id.playBtn);
 		Button QuestionManBtn = (Button)findViewById(R.id.QuestionManBtn);
 		playBtn.setOnClickListener(this);

@@ -54,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public long Insert(int id, String word, String hint) {
+    public long Insert(int id,String word,String hint) {
         ContentValues values = new ContentValues();
         values.put(ID,id);
         values.put(WORD,word);
