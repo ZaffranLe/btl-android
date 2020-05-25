@@ -30,7 +30,7 @@ public class QuestionEditActivity extends Activity {
         qea_ethint = (EditText)findViewById(R.id.qea_ethint);
 
         qea_etid.setEnabled(false);
-
+        dbHelper = new DBHelper(QuestionEditActivity.this);
         dbHelper.openDB();
 
         Intent intent = getIntent();

@@ -100,21 +100,20 @@
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Điểm số:"
+			android:text="Số câu đúng:"
 			android:textSize="25dp" />
 		<TextView
 			android:layout_marginLeft="10dp"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:textSize="25dp"
-			android:text="Score place holder"
+			android:id="@+id/ag_score" />
 	</LinearLayout>
 
 	<TextView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/am_question"
-		android:text="Question place holder"
+		android:id="@+id/ag_hint"
 		android:textSize="30dp"
 		/>
 

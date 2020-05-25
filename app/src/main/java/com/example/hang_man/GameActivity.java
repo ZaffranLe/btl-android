@@ -1,11 +1,13 @@
 package com.example.hang_man;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,17 +24,17 @@ import androidx.core.app.NavUtils;
 
 import com.example.hangman.R;
 
-/**
- * This is demo code to accompany the Mobiletuts+ tutorial:
- * - Android SDK: Create a Hangman Game
- *
- * Sue Smith - January 2014
- */
+	/**
+	 * This is demo code to accompany the Mobiletuts+ tutorial:
+	 * - Android SDK: Create a Hangman Game
+	 *
+	 * Sue Smith - January 2014
+	 */
 
-public class GameActivity extends Activity {
+	public class GameActivity extends Activity {
 
 	//the words
-	private String[] words;
+	private ArrayList<Question> questions;
 	//random for word selection
 	private Random rand;
 	//store the current word
@@ -47,6 +49,9 @@ public class GameActivity extends Activity {
 	private LetterAdapter ltrAdapt;
 	//body part images
 	private ImageView[] bodyParts;
+
+	private TextView scoreTv;
+	private TextView hintTv;
 	//total parts
 	private int numParts=6;
 	//current part
@@ -57,16 +62,35 @@ public class GameActivity extends Activity {
 	private int numCorr;
 	//help
 	private AlertDialog helpAlert;
+	//score
+	public static int score;
+
+	DBHelper dbHelper;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_game);
-
+		scoreTv = (TextView)findViewById(R.id.ag_score);
+		hintTv = (TextView)findViewById(R.id.ag_hint);
 		//read answer words in
-		Resources res = getResources();
-		words = res.getStringArray(R.array.words);
 
+		dbHelper = new DBHelper(GameActivity.this);
+		dbHelper.openDB();
+
+		Cursor cursor = dbHelper.getAllRecord();
+		questions = new ArrayList<Question>();
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			Question question = new Question();
+			question.setId(cursor.getColumnIndex(DBHelper.getID()));
+			question.setHint(cursor.getString(cursor.getColumnIndex(DBHelper.getHINT())));
+			question.setWord(cursor.getString(cursor.getColumnIndex(DBHelper.getWORD())));
+			questions.add(question);
+			cursor.moveToNext();
+		}
+
+		dbHelper.closeDB();
 		//initialize random
 		rand = new Random();
 		//initialize word
@@ -77,7 +101,6 @@ public class GameActivity extends Activity {
 
 		//get letter button grid
 		letters = (GridView)findViewById(R.id.letters);
-
 		//get body part images
 		bodyParts = new ImageView[numParts];
 		bodyParts[0] = (ImageView)findViewById(R.id.head);
@@ -89,7 +112,7 @@ public class GameActivity extends Activity {
 
 		//set home as up
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
+		score = 0;
 		//start gameplay
 		playGame();
 
@@ -117,14 +140,15 @@ public class GameActivity extends Activity {
 
 	//play a new game
 	private void playGame(){
+		scoreTv.setText(Integer.toString(score));
+		//choose a question
+		int randomNumber = rand.nextInt(questions.size());
+		Question question = questions.get(randomNumber);
 
-		//choose a word
-		String newWord = words[rand.nextInt(words.length)];
-		//make sure not same word as last time
-		while(newWord.equals(currWord)) newWord = words[rand.nextInt(words.length)];
 		//update current word
-		currWord = newWord;
-
+		currWord = question.getWord();
+		questions.remove(randomNumber);
+		hintTv.setText(question.getHint());
 		//create new array for character text views
 		charViews = new TextView[currWord.length()];
 
@@ -182,17 +206,26 @@ public class GameActivity extends Activity {
 		//check in case won
 		if(correct){
 			if(numCorr==numChars){
+				score++;
 				//disable all buttons
 				disableBtns();
 				//let user know they have won, ask if they want to play again
 				AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
 				winBuild.setTitle("YAY");
 				winBuild.setMessage("You answered correctly!\n\nThe answer was:\n\n"+currWord);
-				winBuild.setPositiveButton("Next question",
-						new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						GameActivity.this.playGame();
-					}});
+				if (questions.size() != 0) {
+					winBuild.setPositiveButton("Next question",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									GameActivity.this.playGame();
+								}});
+				} else {
+					winBuild.setPositiveButton("To highscore board",
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int id) {
+									GameActivity.this.finish();
+								}});
+				}
 				winBuild.setNegativeButton("Exit", 
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
