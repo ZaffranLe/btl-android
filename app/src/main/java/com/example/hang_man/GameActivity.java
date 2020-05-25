@@ -25,7 +25,7 @@ import com.example.hangman.R;
 /**
  * This is demo code to accompany the Mobiletuts+ tutorial:
  * - Android SDK: Create a Hangman Game
- * 
+ *
  * Sue Smith - January 2014
  */
 
