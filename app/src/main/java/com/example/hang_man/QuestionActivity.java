@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +19,7 @@ public class QuestionActivity extends Activity {
     int listIndex = 0;
     EditText SearchBar;
     ListView lvQuestion;
-    Button addBtn;
+    Button addBtn,backBtn;
     DBHelper dbHelper;
 
     private String getValue(EditText editText) {
@@ -34,6 +35,9 @@ public class QuestionActivity extends Activity {
         SearchBar = (EditText)findViewById(R.id.qa_searchbar);
         addBtn = (Button)findViewById(R.id.qa_addbtn);
         lvQuestion = (ListView)findViewById(R.id.qa_listview);
+        backBtn = (Button)findViewById(R.id.qa_backBtn);
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         dbHelper = new DBHelper(QuestionActivity.this);
         dbHelper.openDB();
@@ -42,6 +46,14 @@ public class QuestionActivity extends Activity {
             public void onClick(View view) {
                 Intent addIntent = new Intent(QuestionActivity.this, AddQuestionActivity.class);
                 startActivity(addIntent);
+            }
+        });
+
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent backIntent = new Intent(QuestionActivity.this,MainActivity.class);
+                startActivity(backIntent);
             }
         });
 

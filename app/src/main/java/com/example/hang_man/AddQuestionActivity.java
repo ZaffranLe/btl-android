@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,14 +29,15 @@ public class AddQuestionActivity extends Activity {
         backBtn = (Button)findViewById(R.id.aqa_backBtn);
         tvWord = (EditText) findViewById(R.id.aqa_word);
         tvHint = (EditText) findViewById(R.id.aqa_hint);
-        tvID = (EditText) findViewById(R.id.aqa_id);
         dbHelper = new DBHelper(AddQuestionActivity.this);
         dbHelper.openDB();
+
+        tvWord.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long resultAdd = dbHelper.Insert(Integer.parseInt(tvID.getText().toString()),tvWord.getText().toString(),tvHint.getText().toString());
+                long resultAdd = dbHelper.Insert(tvWord.getText().toString(),tvHint.getText().toString());
                 if (resultAdd==-1){
                     Toast.makeText(AddQuestionActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
                 }

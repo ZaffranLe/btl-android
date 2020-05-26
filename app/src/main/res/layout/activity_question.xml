@@ -33,14 +33,20 @@
         android:weightSum="100"
         >
         <View
-            android:layout_weight="60"
+            android:layout_weight="30"
             android:layout_width="0dp"
             android:layout_height="match_parent"/>
         <Button
-            android:layout_weight="40"
+            android:layout_weight="35"
             android:id="@+id/qa_addbtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Add Word"/>
+        <Button
+            android:layout_weight="35"
+            android:id="@+id/qa_backBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="BACK"/>
     </LinearLayout>
 </LinearLayout>

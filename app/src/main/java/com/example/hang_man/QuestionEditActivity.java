@@ -4,7 +4,9 @@ package com.example.hang_man;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -34,6 +36,10 @@ public class QuestionEditActivity extends Activity {
         dbHelper.openDB();
 
         Intent intent = getIntent();
+
+        qea_etword.setFilters(new InputFilter[] {new InputFilter.AllCaps()});
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         String receivedID = intent.getStringExtra("id");
         String receivedWord = intent.getStringExtra("word");
@@ -77,8 +83,6 @@ public class QuestionEditActivity extends Activity {
                 long resultDelete = dbHelper.Delete(Integer.parseInt(qea_etid.getText().toString()));
                 if (resultDelete == 0) {
                     Toast.makeText(QuestionEditActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
-                    Intent QEAtoQAintent = new Intent(QuestionEditActivity.this,QuestionActivity.class);
-                    startActivity(QEAtoQAintent);
                 }
                 else {
                     Toast.makeText(QuestionEditActivity.this,"DELETED SUCCESSFULLY",Toast.LENGTH_SHORT).show();

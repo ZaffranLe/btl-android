@@ -6,6 +6,7 @@ import java.util.Random;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -224,6 +225,9 @@ import com.example.hangman.R;
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int id) {
 									GameActivity.this.finish();
+									Intent tohighcoreact = new Intent(GameActivity.this,YourScoreActivity.class);
+									tohighcoreact.putExtra("score",score);
+									startActivity(tohighcoreact);
 								}});
 				}
 				winBuild.setNegativeButton("Exit", 

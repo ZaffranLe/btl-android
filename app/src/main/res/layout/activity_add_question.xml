@@ -13,15 +13,6 @@
         android:text="Back"/>
 
     <EditText
-        android:id="@+id/aqa_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="ID"
-        android:textSize="20dp"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/aqa_word"/>
-
-    <EditText
         android:id="@+id/aqa_word"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
