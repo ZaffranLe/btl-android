@@ -11,7 +11,6 @@
         android:theme="@style/AppTheme">
         <activity android:name="com.example.hang_man.YourScoreActivity"></activity>
         <activity android:name="com.example.hang_man.HighScoreActivity" />
-        <activity android:name="com.example.hang_man.HighScore" />
         <activity android:name="com.example.hang_man.QuestionEditActivity" />
         <activity android:name="com.example.hang_man.AddQuestionActivity" />
         <activity android:name="com.example.hang_man.QuestionLayout" />
