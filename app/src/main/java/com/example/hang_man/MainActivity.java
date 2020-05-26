@@ -41,8 +41,10 @@ public class MainActivity extends Activity  implements OnClickListener {
 		dbHelper = new DBHelper(MainActivity.this);
 		Button playBtn = (Button)findViewById(R.id.playBtn);
 		Button QuestionManBtn = (Button)findViewById(R.id.QuestionManBtn);
+		Button highscoreBtn = (Button)findViewById(R.id.ma_highscore);
 		playBtn.setOnClickListener(this);
 		QuestionManBtn.setOnClickListener(this);
+		highscoreBtn.setOnClickListener(this);
 	}
 
 	@Override
@@ -55,6 +57,10 @@ public class MainActivity extends Activity  implements OnClickListener {
 		if(view.getId()==R.id.QuestionManBtn){
 			Intent qaIntent = new Intent(this,QuestionActivity.class);
 			this.startActivity(qaIntent);
+		}
+		if(view.getId()==R.id.ma_highscore){
+			Intent highscoreIntent = new Intent(this,HighScoreActivity.class);
+			this.startActivity(highscoreIntent);
 		}
 	}
 }
