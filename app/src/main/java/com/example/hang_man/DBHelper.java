@@ -105,7 +105,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public Cursor getAllScores() {
-        String query = "SELECT * FROM " + TABLE_NAME2;
+        String query = "SELECT * FROM " + TABLE_NAME2 + " ORDER BY " + SCORE + " DESC ";
         return QM.rawQuery(query,null);
     }
     
