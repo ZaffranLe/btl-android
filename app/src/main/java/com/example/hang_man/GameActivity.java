@@ -5,17 +5,21 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,6 +72,8 @@ import com.example.hangman.R;
 
 	DBHelper dbHelper;
 
+	Context context;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -106,10 +112,10 @@ import com.example.hangman.R;
 		bodyParts = new ImageView[numParts];
 		bodyParts[0] = (ImageView)findViewById(R.id.head);
 		bodyParts[1] = (ImageView)findViewById(R.id.body);
-		bodyParts[2] = (ImageView)findViewById(R.id.arm1);
-		bodyParts[3] = (ImageView)findViewById(R.id.arm2);
-		bodyParts[4] = (ImageView)findViewById(R.id.leg1);
-		bodyParts[5] = (ImageView)findViewById(R.id.leg2);
+		bodyParts[2] = (ImageView)findViewById(R.id.leg1);
+		bodyParts[3] = (ImageView)findViewById(R.id.leg2);
+		bodyParts[4] = (ImageView)findViewById(R.id.arm2);
+		bodyParts[5] = (ImageView)findViewById(R.id.arm1);
 
 		//set home as up
 		getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -287,5 +293,4 @@ import com.example.hangman.R;
 		helpAlert = helpBuild.create();
 		helpBuild.show();
 	}
-
 }

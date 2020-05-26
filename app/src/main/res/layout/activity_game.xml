@@ -30,8 +30,8 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:contentDescription="@string/head"
-			android:paddingLeft="108dp"
-			android:paddingTop="23dp"
+			android:paddingLeft="52dp"
+			android:paddingTop="59dp"
 			android:src="@drawable/android_hangman_head" />
 
 		<ImageView
@@ -39,35 +39,17 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:contentDescription="@string/body"
-			android:paddingLeft="120dp"
-			android:paddingTop="53dp"
+			android:paddingLeft="59dp"
+			android:paddingTop="82dp"
 			android:src="@drawable/android_hangman_body" />
-
-		<ImageView
-			android:id="@+id/arm1"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:contentDescription="@string/arm"
-			android:paddingLeft="100dp"
-			android:paddingTop="60dp"
-			android:src="@drawable/android_hangman_arm1" />
-
-		<ImageView
-			android:id="@+id/arm2"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:contentDescription="@string/arm"
-			android:paddingLeft="120dp"
-			android:paddingTop="60dp"
-			android:src="@drawable/android_hangman_arm2" />
 
 		<ImageView
 			android:id="@+id/leg1"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:contentDescription="@string/leg"
-			android:paddingLeft="101dp"
-			android:paddingTop="90dp"
+			android:paddingLeft="60dp"
+			android:paddingTop="100dp"
 			android:src="@drawable/android_hangman_leg1" />
 
 		<ImageView
@@ -75,9 +57,28 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:contentDescription="@string/leg"
-			android:paddingLeft="121dp"
-			android:paddingTop="90dp"
+			android:paddingLeft="73dp"
+			android:paddingTop="100dp"
 			android:src="@drawable/android_hangman_leg2" />
+
+		<ImageView
+			android:id="@+id/arm2"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:contentDescription="@string/arm"
+			android:paddingLeft="70dp"
+			android:paddingTop="88dp"
+			android:src="@drawable/android_hangman_arm2" />
+
+		<ImageView
+			android:id="@+id/arm1"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:contentDescription="@string/arm"
+			android:paddingLeft="30dp"
+			android:paddingTop="90dp"
+			android:src="@drawable/android_hangman_arm1" />
+
 	</RelativeLayout>
 
 	<!-- word spaces -->

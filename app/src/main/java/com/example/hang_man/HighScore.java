@@ -1,10 +1,12 @@
 package com.example.hang_man;
 
 public class HighScore {
+    private int id;
     private int score;
     private String name;
 
     public HighScore(int score, String name) {
+        this.id = id;
         this.score = score;
         this.name = name;
     }
