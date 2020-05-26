@@ -32,4 +32,13 @@
 		android:layout_centerHorizontal="true"
 		android:textColor="#FFFF0000"/>
 
+	<Button
+		android:id="@+id/ma_highscore"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="HIGHSCORES"
+		android:layout_below="@+id/QuestionManBtn"
+		android:layout_centerHorizontal="true"
+		android:textColor="#FFFF0000"/>
+
 </RelativeLayout>

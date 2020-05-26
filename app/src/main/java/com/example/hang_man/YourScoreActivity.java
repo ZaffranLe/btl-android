@@ -47,7 +47,8 @@ public class YourScoreActivity extends Activity {
                     Toast.makeText(YourScoreActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Toast.makeText(YourScoreActivity.this,"SUCCESS",Toast.LENGTH_SHORT).show();
+                    Intent toBoardIntent = new Intent(YourScoreActivity.this,HighScoreActivity.class);
+                    startActivity(toBoardIntent);
                 }
             }
         });
