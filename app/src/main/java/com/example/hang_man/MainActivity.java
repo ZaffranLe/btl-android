@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -51,6 +52,11 @@ public class MainActivity extends Activity  implements OnClickListener {
 		playBtn.setOnClickListener(this);
 		QuestionManBtn.setOnClickListener(this);
 		highscoreBtn.setOnClickListener(this);
+		dbHelper = new DBHelper(MainActivity.this);
+		dbHelper.openDB();
+
+		//dbHelper.InsertQuestion("ANDROID","THIS SUBJECT");
+		//dbHelper.InsertQuestion("LINUX","OPEN SOURCE OS");
 	}
 
 	@Override
