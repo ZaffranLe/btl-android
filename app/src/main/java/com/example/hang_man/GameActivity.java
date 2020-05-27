@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -70,6 +71,10 @@ import com.example.hangman.R;
 	//score
 	public static int score;
 
+	private MediaPlayer mpTing;
+	private MediaPlayer mpClap;
+	private MediaPlayer mpError;
+	private MediaPlayer mpFail;
 	DBHelper dbHelper;
 
 	Context context;
@@ -80,6 +85,11 @@ import com.example.hangman.R;
 		setContentView(R.layout.activity_game);
 		scoreTv = (TextView)findViewById(R.id.ag_score);
 		hintTv = (TextView)findViewById(R.id.ag_hint);
+
+		mpTing = MediaPlayer.create(GameActivity.this, R.raw.ting);
+		mpClap = MediaPlayer.create(GameActivity.this, R.raw.clap);
+		mpError = MediaPlayer.create(GameActivity.this, R.raw.error);
+		mpFail = MediaPlayer.create(GameActivity.this, R.raw.fail);
 
 		// init questions data
 		dbHelper = new DBHelper(GameActivity.this);
@@ -212,7 +222,9 @@ import com.example.hangman.R;
 		}
 		//check in case won
 		if(correct){
+			mpTing.start();
 			if(numCorr==numChars){
+				mpClap.start();
 				score++;
 				//disable all buttons
 				disableBtns();
@@ -230,6 +242,7 @@ import com.example.hangman.R;
 					winBuild.setPositiveButton("To highscore board",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int id) {
+									mpRelease();
 									GameActivity.this.finish();
 									Intent tohighcoreact = new Intent(GameActivity.this,YourScoreActivity.class);
 									tohighcoreact.putExtra("score",score);
@@ -239,6 +252,7 @@ import com.example.hangman.R;
 				winBuild.setNegativeButton("Exit", 
 						new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
+						mpRelease();
 						GameActivity.this.finish();
 					}});
 				winBuild.show();
@@ -246,11 +260,13 @@ import com.example.hangman.R;
 		}
 		//check if user still has guesses
 		else if(currPart<numParts){
+			mpError.start();
 			//show next part
 			bodyParts[currPart].setVisibility(View.VISIBLE);
 			currPart++;
 		}
 		else{
+			mpFail.start();
 			//user has lost
 			disableBtns();
 			//let the user know they lost, ask if they want to play again
@@ -266,6 +282,7 @@ import com.example.hangman.R;
 			loseBuild.setNegativeButton("Exit", 
 					new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
+					mpRelease();
 					GameActivity.this.finish();
 				}});
 			loseBuild.show();
@@ -278,6 +295,13 @@ import com.example.hangman.R;
 		for(int l=0; l<numLetters; l++){
 			letters.getChildAt(l).setEnabled(false);
 		}
+	}
+
+	private void mpRelease() {
+		mpError.release();
+		mpTing.release();
+		mpClap.release();
+		mpFail.release();
 	}
 
 	//show help information
