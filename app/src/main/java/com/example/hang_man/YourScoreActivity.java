@@ -42,7 +42,7 @@ public class YourScoreActivity extends Activity {
         ysa_submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long resultAdd = dbHelper.Insert2(ysa_etname.getText().toString(),Integer.parseInt(ysa_tvscore.getText().toString()));
+                long resultAdd = dbHelper.InsertScore(ysa_etname.getText().toString(),Integer.parseInt(ysa_tvscore.getText().toString()));
                 if (resultAdd==-1){
                     Toast.makeText(YourScoreActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
                 }

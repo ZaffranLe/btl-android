@@ -130,5 +130,10 @@
 		android:padding="5dp"
 		android:stretchMode="columnWidth"
 		android:verticalSpacing="5dp" />
-
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/ag_timer"
+		android:textSize="30dp"
+		android:textColor="#FF0000" />
 </LinearLayout>

@@ -75,7 +75,7 @@ public class QuestionActivity extends Activity {
     }
 
     public void showWord(){
-        Cursor cursor = dbHelper.getAllRecord();
+        Cursor cursor = dbHelper.getAllQuestion();
 
         QuestionManageCursorAdapter adapter = new QuestionManageCursorAdapter(QuestionActivity.this,R.layout.activity_question_layout,cursor,0);
         lvQuestion.setAdapter(adapter);

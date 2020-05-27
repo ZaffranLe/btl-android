@@ -80,12 +80,37 @@ import com.example.hangman.R;
 		setContentView(R.layout.activity_game);
 		scoreTv = (TextView)findViewById(R.id.ag_score);
 		hintTv = (TextView)findViewById(R.id.ag_hint);
-		//read answer words in
 
+		// init questions data
 		dbHelper = new DBHelper(GameActivity.this);
+		initData();
+
+		//init variables
+		rand = new Random();
+		currWord = "";
+		score = 0;
+
+		wordLayout = (LinearLayout)findViewById(R.id.word);
+		letters = (GridView)findViewById(R.id.letters);
+
+		bodyParts = new ImageView[numParts];
+		bodyParts[0] = (ImageView)findViewById(R.id.head);
+		bodyParts[1] = (ImageView)findViewById(R.id.body);
+		bodyParts[2] = (ImageView)findViewById(R.id.leg1);
+		bodyParts[3] = (ImageView)findViewById(R.id.leg2);
+		bodyParts[4] = (ImageView)findViewById(R.id.arm2);
+		bodyParts[5] = (ImageView)findViewById(R.id.arm1);
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
+		playGame();
+
+	}
+
+	private void initData() {
 		dbHelper.openDB();
 
-		Cursor cursor = dbHelper.getAllRecord();
+		Cursor cursor = dbHelper.getAllQuestion();
 		questions = new ArrayList<Question>();
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
@@ -98,31 +123,6 @@ import com.example.hangman.R;
 		}
 
 		dbHelper.closeDB();
-		//initialize random
-		rand = new Random();
-		//initialize word
-		currWord="";
-
-		//get answer area
-		wordLayout = (LinearLayout)findViewById(R.id.word);
-
-		//get letter button grid
-		letters = (GridView)findViewById(R.id.letters);
-		//get body part images
-		bodyParts = new ImageView[numParts];
-		bodyParts[0] = (ImageView)findViewById(R.id.head);
-		bodyParts[1] = (ImageView)findViewById(R.id.body);
-		bodyParts[2] = (ImageView)findViewById(R.id.leg1);
-		bodyParts[3] = (ImageView)findViewById(R.id.leg2);
-		bodyParts[4] = (ImageView)findViewById(R.id.arm2);
-		bodyParts[5] = (ImageView)findViewById(R.id.arm1);
-
-		//set home as up
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		score = 0;
-		//start gameplay
-		playGame();
-
 	}
 
 	@Override
@@ -260,6 +260,7 @@ import com.example.hangman.R;
 			loseBuild.setPositiveButton("Play Again", 
 					new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
+					initData();
 					GameActivity.this.playGame();
 				}});
 			loseBuild.setNegativeButton("Exit", 

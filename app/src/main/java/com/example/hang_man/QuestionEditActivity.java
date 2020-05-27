@@ -64,7 +64,7 @@ public class QuestionEditActivity extends Activity {
         applybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long resultUpdate = dbHelper.Update(Integer.parseInt(qea_etid.getText().toString()),qea_etword.getText().toString(),qea_ethint.getText().toString());
+                long resultUpdate = dbHelper.UpdateQuestion(Integer.parseInt(qea_etid.getText().toString()),qea_etword.getText().toString(),qea_ethint.getText().toString());
                 if (resultUpdate == 0) {
                     Toast.makeText(QuestionEditActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
                 }
@@ -80,7 +80,7 @@ public class QuestionEditActivity extends Activity {
         delbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long resultDelete = dbHelper.Delete(Integer.parseInt(qea_etid.getText().toString()));
+                long resultDelete = dbHelper.DeleteQuestion(Integer.parseInt(qea_etid.getText().toString()));
                 if (resultDelete == 0) {
                     Toast.makeText(QuestionEditActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
                 }

@@ -11,12 +11,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String DBName = "qm.db";
     private static final int VERSION = 1;
 
-    private static final String TABLE_NAME = "QuestMan";
+    private static final String QUESTION_TABLE = "QuestMan";
     private static final String ID = "_id";
     private static final String WORD = "word";
     private static final String HINT = "hint";
 
-    private static final String TABLE_NAME2 = "HighScore";
+    private static final String SCORE_TABLE = "HighScore";
     private static final String ID2 = "_id";
     private static final String NAME = "Name";
     private static final String SCORE = "Score";
@@ -47,17 +47,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String queryTable = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + WORD + " TEXT NOT NULL, " + HINT + " TEXT NOT NULL" + ")";
+        String queryTable = "CREATE TABLE IF NOT EXISTS " + QUESTION_TABLE + "( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + WORD + " TEXT NOT NULL, " + HINT + " TEXT NOT NULL" + ")";
         sqLiteDatabase.execSQL(queryTable);
 
-        String queryTable2 = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME2 + "( " + ID2 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT NOT NULL, " + SCORE + " INTEGER NOT NULL" + ")";
+        String queryTable2 = "CREATE TABLE IF NOT EXISTS " + SCORE_TABLE + "( " + ID2 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT NOT NULL, " + SCORE + " INTEGER NOT NULL" + ")";
         sqLiteDatabase.execSQL(queryTable2);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + QUESTION_TABLE);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + SCORE_TABLE);
         onCreate(sqLiteDatabase);
     }
 
@@ -71,42 +71,42 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-    public long Insert(String word,String hint) {
+    public long InsertQuestion(String word,String hint) {
         ContentValues values = new ContentValues();
         values.put(WORD,word);
         values.put(HINT,hint);
-        return QM.insert(TABLE_NAME,null,values);
+        return QM.insert(QUESTION_TABLE,null,values);
     }
 
-    public long Insert2(String name,int score) {
+    public long InsertScore(String name,int score) {
         ContentValues values = new ContentValues();
         values.put(NAME,name);
         values.put(SCORE,score);
-        return QM.insert(TABLE_NAME2,null,values);
+        return QM.insert(SCORE_TABLE,null,values);
     }
 
-    public long Update(int id,String word, String hint) {
+    public long UpdateQuestion(int id,String word, String hint) {
         ContentValues values = new ContentValues();
         values.put(ID,id);
         values.put(WORD,word);
         values.put(HINT,hint);
         String where = ID + " = " + id;
-        return QM.update(TABLE_NAME,values,where,null);
+        return QM.update(QUESTION_TABLE,values,where,null);
     }
 
-    public long Delete(int id) {
+    public long DeleteQuestion(int id) {
         String where = ID + " = " + id;
-        return QM.delete(TABLE_NAME,where,null);
+        return QM.delete(QUESTION_TABLE,where,null);
     }
 
-    public Cursor getAllRecord() {
-        String query = "SELECT * FROM " + TABLE_NAME;
+    public Cursor getAllQuestion() {
+        String query = "SELECT * FROM " + QUESTION_TABLE;
         return QM.rawQuery(query,null);
     }
 
-    public Cursor getAllScores() {
-        String query = "SELECT * FROM " + TABLE_NAME2 + " ORDER BY " + SCORE + " DESC ";
+    public Cursor getAllScore() {
+        String query = "SELECT * FROM " + SCORE_TABLE + " ORDER BY " + SCORE + " DESC ";
         return QM.rawQuery(query,null);
     }
-    
+
 }

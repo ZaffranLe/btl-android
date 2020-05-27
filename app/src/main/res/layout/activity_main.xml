@@ -27,7 +27,7 @@
 		android:id="@+id/QuestionManBtn"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="Question Manager"
+		android:text="Question management"
 		android:layout_below="@+id/playBtn"
 		android:layout_centerHorizontal="true"
 		android:textColor="#FFFF0000"/>
@@ -36,7 +36,7 @@
 		android:id="@+id/ma_highscore"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="HIGHSCORES"
+		android:text="Score board"
 		android:layout_below="@+id/QuestionManBtn"
 		android:layout_centerHorizontal="true"
 		android:textColor="#FFFF0000"/>

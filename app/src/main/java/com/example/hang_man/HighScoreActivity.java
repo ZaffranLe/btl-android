@@ -49,7 +49,7 @@ public class HighScoreActivity extends Activity {
     }
 
     public void showScore() {
-        Cursor cursor = dbHelper.getAllScores();
+        Cursor cursor = dbHelper.getAllScore();
 
         HighScoreAdapter adapter = new HighScoreAdapter(HighScoreActivity.this,R.layout.high_score_layout,cursor,0);
         listview.setAdapter(adapter);

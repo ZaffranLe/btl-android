@@ -37,7 +37,7 @@ public class AddQuestionActivity extends Activity {
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long resultAdd = dbHelper.Insert(tvWord.getText().toString(),tvHint.getText().toString());
+                long resultAdd = dbHelper.InsertQuestion(tvWord.getText().toString(),tvHint.getText().toString());
                 if (resultAdd==-1){
                     Toast.makeText(AddQuestionActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
                 }

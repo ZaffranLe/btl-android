@@ -90,7 +90,7 @@ public class MainActivity extends Activity  implements OnClickListener {
 								String user_text = (userInput.getText()).toString();
 
 								/** CHECK FOR USER'S INPUT **/
-								if (user_text.equals("ggez"))
+								if (user_text.equals(getString(R.string.cheat_code)))
 								{
 									Intent qaIntent = new Intent(MainActivity.this,QuestionActivity.class);
 									startActivity(qaIntent);
