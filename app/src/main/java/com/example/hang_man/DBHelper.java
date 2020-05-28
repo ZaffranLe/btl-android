@@ -12,12 +12,12 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final int VERSION = 1;
 
     private static final String QUESTION_TABLE = "QuestMan";
-    private static final String ID = "_id";
+    private static final String ID_QUESTION = "_id";
     private static final String WORD = "word";
     private static final String HINT = "hint";
 
     private static final String SCORE_TABLE = "HighScore";
-    private static final String ID2 = "_id";
+    private static final String ID_SCORE = "_id";
     private static final String NAME = "Name";
     private static final String SCORE = "Score";
 
@@ -27,8 +27,8 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context,DBName,null,VERSION);
     }
 
-    public static String getID() {
-        return ID;
+    public static String getIdQuestion() {
+        return ID_QUESTION;
     }
 
     public static String getWORD() {
@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return HINT;
     }
 
-    public static String getID2() { return ID2; }
+    public static String getIdScore() { return ID_SCORE; }
 
     public static String getNAME() { return NAME; }
 
@@ -47,11 +47,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String queryTable = "CREATE TABLE IF NOT EXISTS " + QUESTION_TABLE + "( " + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + WORD + " TEXT NOT NULL, " + HINT + " TEXT NOT NULL" + ")";
-        sqLiteDatabase.execSQL(queryTable);
+        String createQuestionTableQuery
+                = "CREATE TABLE IF NOT EXISTS " + QUESTION_TABLE + "( " + ID_QUESTION + " INTEGER PRIMARY KEY AUTOINCREMENT, " + WORD + " TEXT NOT NULL, " + HINT + " TEXT NOT NULL" + ")";
+        sqLiteDatabase.execSQL(createQuestionTableQuery);
+        initQuestionData(sqLiteDatabase);
+        String createScoreTableQuery
+                = "CREATE TABLE IF NOT EXISTS " + SCORE_TABLE + "( " + ID_SCORE + " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT NOT NULL, " + SCORE + " INTEGER NOT NULL" + ")";
+        sqLiteDatabase.execSQL(createScoreTableQuery);
+    }
 
-        String queryTable2 = "CREATE TABLE IF NOT EXISTS " + SCORE_TABLE + "( " + ID2 + " INTEGER PRIMARY KEY AUTOINCREMENT, " + NAME + " TEXT NOT NULL, " + SCORE + " INTEGER NOT NULL" + ")";
-        sqLiteDatabase.execSQL(queryTable2);
+    public void initQuestionData(SQLiteDatabase sqLiteDatabase) {
+        String createQuestion = "INSERT INTO " + QUESTION_TABLE + "(word, hint) VALUES('SCHOOL', 'Trường học')," +
+                "('UNIVERSITY', '... of transport and communication')," +
+                "('ELEVEN', 'Nine, Ten, ..., Twelve')," +
+                "('RHYTHM', 'Giai điệu')," +
+                "('FOURTH', 'First, Second, Third, ...')," +
+                "('ANDROID', '... is an open source operating system')," +
+                "('LINUX', '... is an open source operating system')," +
+                "('WINDOWS', 'Most popular operating system')," +
+                "('BEAUTIFUL', 'She looks ...')";
+        sqLiteDatabase.execSQL(createQuestion);
     }
 
     @Override
@@ -87,15 +102,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public long UpdateQuestion(int id,String word, String hint) {
         ContentValues values = new ContentValues();
-        values.put(ID,id);
+        values.put(ID_QUESTION,id);
         values.put(WORD,word);
         values.put(HINT,hint);
-        String where = ID + " = " + id;
+        String where = ID_QUESTION + " = " + id;
         return QM.update(QUESTION_TABLE,values,where,null);
     }
 
     public long DeleteQuestion(int id) {
-        String where = ID + " = " + id;
+        String where = ID_QUESTION + " = " + id;
         return QM.delete(QUESTION_TABLE,where,null);
     }
 

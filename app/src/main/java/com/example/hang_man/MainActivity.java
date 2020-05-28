@@ -45,7 +45,6 @@ public class MainActivity extends Activity  implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		dbHelper = new DBHelper(MainActivity.this);
 		Button playBtn = (Button)findViewById(R.id.playBtn);
 		Button QuestionManBtn = (Button)findViewById(R.id.QuestionManBtn);
 		Button highscoreBtn = (Button)findViewById(R.id.ma_highscore);
@@ -55,8 +54,6 @@ public class MainActivity extends Activity  implements OnClickListener {
 		dbHelper = new DBHelper(MainActivity.this);
 		dbHelper.openDB();
 
-		//dbHelper.InsertQuestion("ANDROID","THIS SUBJECT");
-		//dbHelper.InsertQuestion("LINUX","OPEN SOURCE OS");
 	}
 
 	@Override
@@ -70,8 +67,8 @@ public class MainActivity extends Activity  implements OnClickListener {
 			showDialog();
 		}
 		if(view.getId()==R.id.ma_highscore){
-			Intent highscoreIntent = new Intent(this,HighScoreActivity.class);
-			this.startActivity(highscoreIntent);
+			Intent highScoreIntent = new Intent(this,HighScoreActivity.class);
+			this.startActivity(highScoreIntent);
 		}
 	}
 

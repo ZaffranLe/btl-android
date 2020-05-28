@@ -16,7 +16,7 @@ public class QuestionManageCursorAdapter extends ResourceCursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         TextView tvID = (TextView)view.findViewById(R.id.qe_tvid);
-        tvID.setText(cursor.getString(cursor.getColumnIndex(DBHelper.getID())));
+        tvID.setText(cursor.getString(cursor.getColumnIndex(DBHelper.getIdQuestion())));
 
         TextView tvWord = (TextView)view.findViewById(R.id.qe_tvword);
         tvWord.setText(cursor.getString(cursor.getColumnIndex(DBHelper.getWORD())));

@@ -38,7 +38,7 @@ public class QuestionActivity extends Activity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
         dbHelper = new DBHelper(QuestionActivity.this);
-        dbHelper.openDB();
+
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,8 +55,6 @@ public class QuestionActivity extends Activity {
             }
         });
 
-        showWord();
-
         lvQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,6 +68,15 @@ public class QuestionActivity extends Activity {
                 startActivityForResult(qeIntent,0);
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        dbHelper.openDB();
+        showWord();
+        dbHelper.closeDB();
     }
 
     public void showWord(){
