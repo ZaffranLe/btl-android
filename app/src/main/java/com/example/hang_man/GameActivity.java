@@ -223,7 +223,6 @@ import com.example.hangman.R;
 		//check in case won
 		if(correct){
 			if(numCorr==numChars){
-				mpClap.release();
 				mpClap.start();
 				score++;
 				//disable all buttons
@@ -260,14 +259,12 @@ import com.example.hangman.R;
 		}
 		//check if user still has guesses
 		else if(currPart<numParts){
-			mpError.release();
 			mpError.start();
 			//show next part
 			bodyParts[currPart].setVisibility(View.VISIBLE);
 			currPart++;
 		}
 		else{
-			mpFail.release();
 			mpFail.start();
 			//user has lost
 			disableBtns();
@@ -310,8 +307,6 @@ import com.example.hangman.R;
 	}
 
 	private void mpRelease() {
-		mpError.release();
-		mpTing.release();
 		mpClap.release();
 		mpFail.release();
 	}
