@@ -71,9 +71,7 @@ import com.example.hangman.R;
 	//score
 	public static int score;
 
-	private MediaPlayer mpTing;
 	private MediaPlayer mpClap;
-	private MediaPlayer mpError;
 	private MediaPlayer mpFail;
 	DBHelper dbHelper;
 
@@ -86,9 +84,7 @@ import com.example.hangman.R;
 		scoreTv = (TextView)findViewById(R.id.ag_score);
 		hintTv = (TextView)findViewById(R.id.ag_hint);
 
-		mpTing = MediaPlayer.create(GameActivity.this, R.raw.ting);
 		mpClap = MediaPlayer.create(GameActivity.this, R.raw.clap);
-		mpError = MediaPlayer.create(GameActivity.this, R.raw.error);
 		mpFail = MediaPlayer.create(GameActivity.this, R.raw.fail);
 
 		// init questions data
@@ -125,7 +121,7 @@ import com.example.hangman.R;
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			Question question = new Question();
-			question.setId(cursor.getColumnIndex(DBHelper.getID()));
+			question.setId(cursor.getColumnIndex(DBHelper.getIdQuestion()));
 			question.setHint(cursor.getString(cursor.getColumnIndex(DBHelper.getHINT())));
 			question.setWord(cursor.getString(cursor.getColumnIndex(DBHelper.getWORD())));
 			questions.add(question);
@@ -223,7 +219,6 @@ import com.example.hangman.R;
 		//check in case won
 		if(correct){
 			if(numCorr==numChars){
-				mpClap.release();
 				mpClap.start();
 				score++;
 				//disable all buttons
@@ -260,14 +255,11 @@ import com.example.hangman.R;
 		}
 		//check if user still has guesses
 		else if(currPart<numParts){
-			mpError.release();
-			mpError.start();
 			//show next part
 			bodyParts[currPart].setVisibility(View.VISIBLE);
 			currPart++;
 		}
 		else{
-			mpFail.release();
 			mpFail.start();
 			//user has lost
 			disableBtns();
@@ -310,8 +302,6 @@ import com.example.hangman.R;
 	}
 
 	private void mpRelease() {
-		mpError.release();
-		mpTing.release();
 		mpClap.release();
 		mpFail.release();
 	}
