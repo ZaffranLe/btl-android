@@ -222,8 +222,8 @@ import com.example.hangman.R;
 		}
 		//check in case won
 		if(correct){
-			mpTing.start();
 			if(numCorr==numChars){
+				mpClap.release();
 				mpClap.start();
 				score++;
 				//disable all buttons
@@ -239,14 +239,14 @@ import com.example.hangman.R;
 									GameActivity.this.playGame();
 								}});
 				} else {
-					winBuild.setPositiveButton("To highscore board",
+					winBuild.setPositiveButton("To score board",
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog, int id) {
 									mpRelease();
 									GameActivity.this.finish();
-									Intent tohighcoreact = new Intent(GameActivity.this,YourScoreActivity.class);
-									tohighcoreact.putExtra("score",score);
-									startActivity(tohighcoreact);
+									Intent yourScoreActivity = new Intent(GameActivity.this,YourScoreActivity.class);
+									yourScoreActivity.putExtra("score",score);
+									startActivity(yourScoreActivity);
 								}});
 				}
 				winBuild.setNegativeButton("Exit", 
@@ -260,12 +260,14 @@ import com.example.hangman.R;
 		}
 		//check if user still has guesses
 		else if(currPart<numParts){
+			mpError.release();
 			mpError.start();
 			//show next part
 			bodyParts[currPart].setVisibility(View.VISIBLE);
 			currPart++;
 		}
 		else{
+			mpFail.release();
 			mpFail.start();
 			//user has lost
 			disableBtns();
@@ -285,6 +287,16 @@ import com.example.hangman.R;
 					mpRelease();
 					GameActivity.this.finish();
 				}});
+			if (score > 0) {
+				loseBuild.setNeutralButton("To score board", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						mpRelease();
+						GameActivity.this.finish();
+						Intent yourScoreActivity = new Intent(GameActivity.this,YourScoreActivity.class);
+						yourScoreActivity.putExtra("score",score);
+						startActivity(yourScoreActivity);
+					}});
+			}
 			loseBuild.show();
 		}
 	}

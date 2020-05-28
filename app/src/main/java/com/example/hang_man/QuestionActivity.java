@@ -17,7 +17,6 @@ import com.example.hangman.R;
 public class QuestionActivity extends Activity {
 
     int listIndex = 0;
-    EditText SearchBar;
     ListView lvQuestion;
     Button addBtn,backBtn;
     DBHelper dbHelper;
@@ -32,7 +31,6 @@ public class QuestionActivity extends Activity {
         setContentView(R.layout.activity_question);
 
         setTitle("Question Manager");
-        SearchBar = (EditText)findViewById(R.id.qa_searchbar);
         addBtn = (Button)findViewById(R.id.qa_addbtn);
         lvQuestion = (ListView)findViewById(R.id.qa_listview);
         backBtn = (Button)findViewById(R.id.qa_backBtn);
@@ -62,13 +60,13 @@ public class QuestionActivity extends Activity {
         lvQuestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView idholder = (TextView)view.findViewById(R.id.qe_tvid);
-                TextView wordholder = (TextView)view.findViewById(R.id.qe_tvword);
-                TextView hintholder = (TextView)view.findViewById(R.id.qe_tvhint);
+                TextView idHolder = (TextView)view.findViewById(R.id.qe_tvid);
+                TextView wordHolder = (TextView)view.findViewById(R.id.qe_tvword);
+                TextView hintHolder = (TextView)view.findViewById(R.id.qe_tvhint);
                 Intent qeIntent = new Intent(view.getContext(), QuestionEditActivity.class);
-                qeIntent.putExtra("id",idholder.getText().toString());
-                qeIntent.putExtra("word",wordholder.getText().toString());
-                qeIntent.putExtra("hint",hintholder.getText().toString());
+                qeIntent.putExtra("id",idHolder.getText().toString());
+                qeIntent.putExtra("word",wordHolder.getText().toString());
+                qeIntent.putExtra("hint",hintHolder.getText().toString());
                 startActivityForResult(qeIntent,0);
             }
         });

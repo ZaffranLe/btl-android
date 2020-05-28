@@ -71,7 +71,7 @@
             android:id="@+id/hsa_retryBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="RETRY"
+            android:text="PLAY"
             android:textSize="20dp"
             android:layout_toStartOf="@+id/hsa_homeBtn"
             android:layout_alignParentBottom="true"/>

@@ -15,8 +15,8 @@ import android.widget.Toast;
 import com.example.hangman.R;
 
 public class YourScoreActivity extends Activity {
-    TextView ysa_tvscore;
-    EditText ysa_etname;
+    TextView ysa_tvScore;
+    EditText ysa_etName;
     Button ysa_submitBtn;
     DBHelper dbHelper;
 
@@ -33,16 +33,16 @@ public class YourScoreActivity extends Activity {
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        ysa_tvscore = (TextView)findViewById(R.id.ysa_tvyourscore);
-        ysa_etname = (EditText)findViewById(R.id.ysa_etname);
+        ysa_tvScore = (TextView)findViewById(R.id.ysa_tvyourscore);
+        ysa_etName = (EditText)findViewById(R.id.ysa_etname);
         ysa_submitBtn = (Button)findViewById(R.id.ysa_applyBtn);
 
-        ysa_tvscore.setText(String.valueOf(receivedScore));
+        ysa_tvScore.setText(String.valueOf(receivedScore));
 
         ysa_submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                long resultAdd = dbHelper.InsertScore(ysa_etname.getText().toString(),Integer.parseInt(ysa_tvscore.getText().toString()));
+                long resultAdd = dbHelper.InsertScore(ysa_etName.getText().toString(),Integer.parseInt(ysa_tvScore.getText().toString()));
                 if (resultAdd==-1){
                     Toast.makeText(YourScoreActivity.this,"ERROR",Toast.LENGTH_SHORT).show();
                 }
