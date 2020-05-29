@@ -227,6 +227,7 @@ import com.example.hangman.R;
 				AlertDialog.Builder winBuild = new AlertDialog.Builder(this);
 				winBuild.setTitle("YAY");
 				winBuild.setMessage("You answered correctly!\n\nThe answer was:\n\n"+currWord);
+				winBuild.setCancelable(false);
 				if (questions.size() != 0) {
 					winBuild.setPositiveButton("Next question",
 							new DialogInterface.OnClickListener() {
@@ -267,7 +268,8 @@ import com.example.hangman.R;
 			AlertDialog.Builder loseBuild = new AlertDialog.Builder(this);
 			loseBuild.setTitle("OOPS");
 			loseBuild.setMessage("You lose!\n\nThe answer was:\n\n"+currWord);
-			loseBuild.setPositiveButton("Play Again", 
+			loseBuild.setCancelable(false);
+			loseBuild.setPositiveButton("Play Again",
 					new DialogInterface.OnClickListener() {
 				public void onClick(DialogInterface dialog, int id) {
 					initData();
